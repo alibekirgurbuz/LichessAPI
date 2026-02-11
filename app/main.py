@@ -11,7 +11,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-this_will_break =
 
 @app.get("/")
 def root():
