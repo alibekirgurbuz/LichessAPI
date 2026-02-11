@@ -1,0 +1,28 @@
+name: Backend Docker CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  docker-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: |
+          docker build -t backend-ci .
+
+      - name: Run container
+        run: |
+          docker run -d -p 8000:8000 backend-ci
+          sleep 5
+
+      - name: Health check
+        run: |
+          curl -f http://localhost:8000/health
